@@ -6,7 +6,7 @@
  * @param {expression} bsGrid
  */
 angular.module('bsgrid')
-    .directive('bsGrid', function () {
+    .directive('bsGrid', function (localStorageService) {
   return {
     scope: {
       options: '='
