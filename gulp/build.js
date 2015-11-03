@@ -49,7 +49,7 @@ gulp.task('build', ['html', 'css'], function () {
 
 
     //js
-    return gulp.src([ '.tmp/*.js', 'src/*.js'])
+    return gulp.src([ '.tmp/*.js', 'src/bsgrid-directive.js', 'src/*.js' ])
         .pipe(debug({title: 'js'}))
         .pipe($.sourcemaps.init())
         .pipe($.concat('bsgrid.js'))
