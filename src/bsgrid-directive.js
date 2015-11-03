@@ -5,12 +5,12 @@
  * @name bsGrid
  * @param {expression} bsGrid
  */
-angular.module('bs').directive('bsGrid', function () {
+angular.module('bsgrid', ['bsgrid.tpls']).directive('bsGrid', function () {
   return {
     scope: {
       options: '='
     },
-    templateUrl: 'app/components/bsgrid/bsgrid.html',
+    templateUrl: 'template/bsgrid.html',
     restrict: 'E',
     controller: function ($scope, $element, $filter, $timeout, $state, localStorageService) {
 

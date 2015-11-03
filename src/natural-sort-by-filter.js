@@ -3,7 +3,7 @@
 // Found reference for sort at http://stackoverflow.com/questions/17155856/angularjs-ng-repeat-orderby-orders-numbers-incorrectly
 // used orderBy source for example at https://github.com/angular/angular.js/blob/master/src/ng/filter/orderBy.js#L3
 
-angular.module('app').filter('naturalSortBy',function($parse){
+angular.module('bsgrid').filter('naturalSortBy',function($parse){
     function naturalSort (a, b) {
         var re = /(^-?[0-9]+(\.?[0-9]*)[df]?e?[0-9]?$|^0x[0-9a-f]+$|[0-9]+)/gi,
             sre = /(^[ ]*|[ ]*$)/g,
