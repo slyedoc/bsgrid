@@ -5,7 +5,8 @@
  * @name bsGrid
  * @param {expression} bsGrid
  */
-angular.module('bsgrid', ['angular-loading-bar']).directive('bsGrid', function () {
+angular.module('bsgrid')
+    .directive('bsGrid', function () {
   return {
     scope: {
       options: '='
