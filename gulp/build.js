@@ -55,7 +55,6 @@ gulp.task('build', ['html', 'css'], function () {
         .pipe($.concat('bsgrid.js'))
         .pipe($.ngAnnotate())
         .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', errors('Uglify'))
-
         .pipe($.sourcemaps.write())
         .pipe(gulp.dest('dist'))
         .pipe($.size({ title: 'dist/', showFiles: true }));
