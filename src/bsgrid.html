@@ -1,0 +1,187 @@
+<div class="row bs-grid">
+
+  <!-- Options -->
+  <div class="col-sm-9">
+    <div uib-dropdown>
+
+      <!-- Options button -->
+      <button class="btn btn-default"
+              uib-dropdown-toggle
+              ng-class="{ 'btn-sm': options.pageSizeShow, 'btn-xs': !options.pageSizeShow  }">
+        Options
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+
+
+        <!-- Page size -->
+        <li ng-if="options.pageSizeShow" role="presentation" class="dropdown-header">Page Size</li>
+        <li ng-if="options.pageSizeShow" ng-repeat="size in options.pageSizeOptions"
+            ng-class="{'active': options.pageSize === size }">
+          <a tabindex="-1" ng-click="options.pageSize = size">{{ size
+            }}</a>
+        </li>
+        <li ng-if="options.pageSizeShow" role="presentation" class="divider"></li>
+
+
+        <!-- Show/Hide Columns -->
+        <li role="presentation" class="dropdown-header">Columns</li>
+        <li ng-repeat="col in options.columns">
+          <a ng-click="hideColumn(col)">
+            <i ng-class="col.visible ? 'glyphicon glyphicon-ok': 'glyphicon glyphicon-remove'"></i>
+            <span>{{ col.name }} </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- Search -->
+  <div ng-if="options.showSearch" class="col-sm-3" style="margin-bottom: 10px"
+       ng-class="{ 'col-sm-offset-9': !options.pageSizeShow }">
+    <div class="input-group input-group-sm">
+      <input type="text" class="form-control" placeholder="Search"
+             ng-model="options.searchFilter"
+             ng-change="filter()"
+             ng-model-options="{ debounce: { 'default': 400, 'blur': 0 } }"/>
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+    </div>
+  </div>
+
+
+  <!-- Grid -->
+  <div class=" col-md-12 " ng-class="{'table-responsive': options.scrollHorizontal}">
+    <table class="table table-striped table-bordered table-hover table-condensed color2">
+      <thead>
+      <tr>
+
+        <!-- Select All checkbox-->
+        <th ng-if="options.multiSelect " class="bs-grid-select">
+          <input ng-if="options.multiSelect" type="checkbox" ng-model="selectAllToggle"
+                 ng-change="toggleSelectAll(selectAllToggle)">
+        </th>
+
+
+        <!-- Columns Headers -->
+        <th class="bs-grid-overflow" ng-repeat="col in options.columns" ng-click="sort(col, true)"
+            style="width: {{ col.width }};" ng-show="col.visible">
+          <div ng-drop="true" ng-drop-success="onDropComplete($index, $data, $evt)">
+            <div ng-drag="true" ng-drag-data="col">
+              <span>{{ col.name || col.field }} </span>
+                            <span ng-if="col.sorted" class="order" ng-class="{'dropup': col.reverse }">
+                                <span class="caret"></span>
+                            </span>
+            </div>
+          </div>
+
+          <!--TODO: replace this with a single icon-->
+          <!--<span ng-if="!col.sorted && col.sortable" class="order">-->
+          <!--<span class="caret"></span>-->
+          <!--</span>-->
+          <!--<span ng-if="!col.sorted && col.sortable" class="order dropup">-->
+          <!--<span class="caret"></span>-->
+          <!--</span>-->
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <!-- Rows -->
+      <tr ng-repeat="item in displayedItems"
+          ng-class="{'info' : isSelectedItem( item ) }"
+          ng-click="selectItem(item)">
+
+        <td ng-if="options.multiSelect">
+          <input type="checkbox" class="bg-grid-checkbox" ng-checked="isSelectedItem(item)"
+                 ng-click="selectItemCheckbox($event, item)">
+        </td>
+
+        <!-- Cells -->
+        <td class="bs-grid-overflow" ng-repeat="col in options.columns" ng-show="col.visible">
+          <div ng-if="col.template" bs-grid-cell-template="{{ col.template }}">
+          </div>
+          <div ng-if="!col.template" class="bs-grid-column bs-grid-column-{{col.field}}">
+            {{ item[col.field] }}
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div ng-if="options.showFooter" class="col-md-12">
+
+    <!-- Statistic -->
+    <div class="col-sm-4">
+      <div class="row">
+                <span ng-if="options.selectedItems.length != 0">
+                  Selected <strong class=\"text-primary\">{{options.selectedItems.length}}</strong></span>
+                <span ng-class="{ 'text-danger': displayedItems.length == 0}">
+                  Showing <strong>{{showing.begin}}</strong> to <strong>{{showing.end}}</strong> of <strong
+                  class=\"text-primary\">{{ showing.of}}</strong> items
+                </span>
+      </div>
+      <div class="row">
+                <span ng-if="options.searchFilter">
+                  (<em>Filtered down from <strong>{{options.items.length}}</strong></em>)
+                </span>
+      </div>
+    </div>
+
+
+    <!-- Pagination -->
+    <div class="col-sm-8">
+
+      <uib-pagination class="pagination-sm pull-right color2" boundary-links="true"
+                      max-size="9"
+                      items-per-page="options.pageSize"
+                      total-items="filteredItems.length"
+                      ng-model="options.currentPage"
+                      ng-change="getPage()"
+                      previous-text="Previous"
+                      next-text="Next"
+                      first-text="First"
+                      last-text="Last">
+      </uib-pagination>
+    </div>
+
+  </div>
+
+
+  <!-- Export -->
+  <div class="col-sm-9" ng-if="options.showExportButton">
+    <div uib-dropdown>
+
+      <button class="btn btn-default btn-sm" type="button" uib-dropdown-toggle>
+        Export <span class=\"caret\"></span>
+      </button>
+
+      <ul class="dropdown-menu" role="menu">
+
+        <!-- Filtered -->
+        <li role="presentation" class="dropdown-header">
+          <a tabindex="-1" ng-click="Export(exportTypes.FILTERED)">Filtered</a>
+        </li>
+
+        <!-- Selected -->
+        <li role="presentation" class="dropdown-header" ng-if="options.selectedItems[0]">
+          <a ng-click="Export(exportTypes.SELECTED)">Selected</a>
+        </li>
+
+        <!-- All -->
+        <li role="presentation" class="dropdown-header">
+          <a ng-click="Export(exportTypes.ALL)">All</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+</div>
+
+

@@ -1,0 +1,31 @@
+{
+  "name": "bsgrid",
+  "authors": [
+    "James Towles <james.towles@gmail.com>"
+  ],
+  "description": "Angular Grid System",
+  "main": [
+    "src/bsgrid.cc",
+    "src/bsgrid.html",
+    "src/bsgrid-directive.js",
+    "src/natural-sort-by-filter.js"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "angular",
+    "bootstrap",
+    "grid",
+    "bsgrid"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
