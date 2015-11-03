@@ -5,7 +5,7 @@
  * @name bsGrid
  * @param {expression} bsGrid
  */
-angular.module('bsgrid', ['bsgrid.tpls']).directive('bsGrid', function () {
+angular.module('bsgrid', []).directive('bsGrid', function () {
   return {
     scope: {
       options: '='

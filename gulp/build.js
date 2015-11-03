@@ -20,7 +20,7 @@ gulp.task('html', function () {
             quotes: true
         }))
         .pipe($.angularTemplatecache('bsgridCacheHtml.js', {
-            module: 'bsgrid.tpls',
+            module: 'bsgrid',
             root: 'template'
         }))
         .pipe(gulp.dest('.tmp/'));
@@ -49,7 +49,7 @@ gulp.task('build', ['html', 'css'], function () {
 
 
     //js
-    return gulp.src([ '.tmp/*.js', 'src/bsgrid-directive.js', 'src/*.js' ])
+    return gulp.src([ 'src/bsgrid-directive.js', 'src/*.js', '.tmp/*.js' ])
         .pipe(debug({title: 'js'}))
         .pipe($.sourcemaps.init())
         .pipe($.concat('bsgrid.js'))
