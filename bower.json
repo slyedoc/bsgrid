@@ -5,10 +5,8 @@
   ],
   "description": "Angular Grid System",
   "main": [
-    "src/bsgrid.cc",
-    "src/bsgrid.html",
-    "src/bsgrid-directive.js",
-    "src/natural-sort-by-filter.js"
+    "dist/bsgrid.css",
+    "dist/bsgrid.js"
   ],
   "moduleType": [
     "globals"
@@ -21,11 +19,9 @@
   ],
   "license": "MIT",
   "homepage": "",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+  "ignore": [],
+  "dependencies": {
+    "angular": ">=1.4.0",
+    "angular-bootstrap": ">=0.14.0"
+  }
 }
