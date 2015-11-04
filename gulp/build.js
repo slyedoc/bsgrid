@@ -1,11 +1,22 @@
 var path = require('path');
 var gulp = require('gulp');
-
+var wiredep = require('wiredep').stream;
+var _ = require('lodash');
 var debug = require('gulp-debug');
 
 var $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
+
+var errors = function(title) {
+    'use strict';
+
+    return function(err) {
+        gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
+        this.emit('end');
+    };
+};
+
 
 gulp.task('clean', function () {
     return $.del(['dist/']);
@@ -36,20 +47,13 @@ gulp.task('css', function () {
 });
 
 
-gulp.task('build', ['html', 'css'], function () {
 
-    var errors = function(title) {
-        'use strict';
+gulp.task('build', ['html', 'css', 'scripts', 'inject'], function () {
 
-        return function(err) {
-            gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
-            this.emit('end');
-        };
-    };
 
 
     //js
-    return gulp.src([ 'src/bsgrid.js', 'src/*.js', '.tmp/*.js' ])
+    return gulp.src([ 'src/bsgrid.module.js', 'src/*.js', '.tmp/*.js' ])
         .pipe(debug({title: 'js'}))
         .pipe($.sourcemaps.init())
         .pipe($.concat('bsgrid.js'))

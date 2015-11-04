@@ -1,19 +1,25 @@
-'use strict';
+(function () {
+  'use strict';
 
-/**
- * @ngDoc directive
- * @name bsGrid
- * @param {expression} bsGrid
- */
-angular.module('bsgrid')
-    .directive('bsGrid', function (localStorageService) {
-  return {
-    scope: {
-      options: '='
-    },
-    templateUrl: 'template/bsgrid.html',
-    restrict: 'E',
-    controller: function ($scope, $element, $filter, $timeout, $state, localStorageService) {
+
+  angular
+    .module('bsgrid')
+    .directive('bsGrid', BSGrid);
+
+  /** @ngInject */
+  function BSGrid() {
+
+    return {
+      scope: {
+        options: '='
+      },
+      templateUrl: 'template/bsgrid.html',
+      restrict: 'E',
+      controller:  BSGridController
+    };
+
+    /** @ngInject */
+    function BSGridController($scope, $element, $filter, $timeout, $state, localStorageService) {
 
       $scope.filteredItems = $scope.options.items;
       $scope.displayedItems = [];
@@ -435,14 +441,14 @@ angular.module('bsgrid')
         if (angular.isNumber(str)) {
           return '' + str;
         }
-        if (angular.isBoolean(str)) {
+        if (str === true || str === false) {
           return (str ? 'True' : 'False');
         }
         if (angular.isString(str)) {
           return str.replace(/"/g, '""');
         }
 
-        return angular.toJson( str ).replace(/"/g, '""');
+        return angular.toJson(str).replace(/"/g, '""');
       };
 
 
@@ -464,12 +470,10 @@ angular.module('bsgrid')
       };
 
 
-      $scope.Export = function (exportType) {
-
+      $scope.export = function (exportType) {
         var fieldNames = [];
         var csvData = '';
         var requests = [];
-
 
         // Get column names for displaying in a report and names of all fields
         _.each($scope.options.columns, function (c) {
@@ -483,7 +487,6 @@ angular.module('bsgrid')
           csvData += '"' + $scope.csvStringify(v) + '",';
         });
 
-
         csvData = $scope.swapLastCommaForNewline(csvData);
         csvData = $scope.GetRowsForExport(exportType, fieldNames, csvData);
 
@@ -492,10 +495,9 @@ angular.module('bsgrid')
 
       };
     }
-  };
-});
-//********** Exports ends here **********
+  }
 
+})();
 
 
 

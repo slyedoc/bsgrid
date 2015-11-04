@@ -1,15 +1,9 @@
-bs-grid  .pagination {
-    margin-top: 0px;
-}
-
-bs-grid table  {
-    /*table-layout: fixed;*/
-
+.bs-grid-pagination {
+    margin-top: 0px !important;
 }
 
 .bs-grid-select {
     width: 25px;
-
 }
 
 .bs-grid-select-disable {
@@ -21,6 +15,7 @@ bs-grid table  {
     overflow: hidden;
     white-space: nowrap;
 }
+
 .bs-grid {
     padding-top: 10px;
 }

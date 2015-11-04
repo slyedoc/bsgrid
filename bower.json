@@ -22,7 +22,23 @@
   "ignore": [],
   "dependencies": {
     "angular": ">=1.4.0",
-    "angular-bootstrap": ">=0.14.0",
-    "angular-local-storage": ">=0.2.3"
+    "angular-bootstrap": "~0.14.x",
+    "angular-local-storage": ">=0.2.3",
+    "angular-ui-router": "~0.2.15",
+    "lodash": "~3.10.1",
+    "bootstrap": "~3.3.5",
+    "angular-animate": "~1.4.7"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.css",
+        "dist/fonts/glyphicons-halflings-regular.eot",
+        "dist/fonts/glyphicons-halflings-regular.svg",
+        "dist/fonts/glyphicons-halflings-regular.ttf",
+        "dist/fonts/glyphicons-halflings-regular.woff",
+        "dist/fonts/glyphicons-halflings-regular.woff2"
+      ]
+    }
   }
 }

@@ -35,6 +35,7 @@
     "gulp-util": "~3.0.6",
     "lodash": "~3.10.1",
     "main-bower-files": "~2.9.0",
+    "wiredep": "~2.2.2",
     "wrench": "~1.5.8"
   },
   "engines": {
