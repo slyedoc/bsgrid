@@ -6,6 +6,12 @@
     width: 25px;
 }
 
+.bs-grid-margin
+{
+  margin-top: 10px;
+}
+
+
 .bs-grid-select-disable {
     /*pointer-events:none;*/
 }
