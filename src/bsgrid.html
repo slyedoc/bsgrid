@@ -7,7 +7,7 @@
             <button type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
                 Options <span class="caret"></span>
             </button>
-            <ul class="uib-dropdown-menu" role="menu">
+            <ul uib-dropdown-menu role="menu">
                 <!-- Page size -->
                 <li role="menuitem" ng-if="options.pageSizeShow" role="presentation" class="dropdown-header">Page Size
                 </li>
@@ -35,7 +35,7 @@
                 Export <span class="caret"></span>
             </button>
 
-            <ul class="uib-dropdown-menu" role="menu">
+            <ul uib-dropdown-menu role="menu">
                 <li role="menuitem">
                     <a ng-click="export(exportTypes.FILTERED)">Filtered</a>
                 </li>
@@ -47,8 +47,6 @@
                 </li>
             </ul>
         </div>
-
-
     </div>
 
     <!-- Search -->
