@@ -197,7 +197,7 @@
             // assuming it was just updated and we still want it selected
 
             if (angular.isDefined(item.id)) {
-              matches = _.where($scope.options.items, {'id': item.id});
+              matches = _.filter($scope.options.items, {'id': item.id});
               if (matches.length === 1) {
                 match = matches[0];
               }

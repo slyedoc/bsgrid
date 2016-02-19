@@ -6,6 +6,7 @@
     .module('bsgrid')
     .directive('bsgridAutoFocus', BSGridAutoFocus);
 
+   /** @ngInject */
    function BSGridAutoFocus($timeout) {
      return {
        restrict: 'AC',
